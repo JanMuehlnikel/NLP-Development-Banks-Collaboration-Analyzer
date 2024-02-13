@@ -1,4 +1,4 @@
-# NLP-Development-Banks-Collaboration-Analyzer 🚀
+# NLP-Development-Banks-Collaboration-Analyzer 🌏
 
 Unlocking the Power of Development Banks' Collaboration with NLP
 
