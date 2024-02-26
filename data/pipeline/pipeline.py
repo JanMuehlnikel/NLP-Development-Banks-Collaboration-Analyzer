@@ -11,6 +11,7 @@ This file contains a pipeline which can be used to extract all organizational da
 # Dependecies #
 ###############
 from fetch_api import fetch_data
+from transform import transform
 
 # Your current dirctory has to be /data/pipeline/ to not get FileNotFoundError
 from importlib.machinery import SourceFileLoader
@@ -36,9 +37,13 @@ for key, org_values in CONSTANTS.ORGANIZATIONS.items():
     # iati code the access IATI orga data
     code = org_values[2]
 
-fl_list = CONSTANTS.IATI_ATTRIBUTES
-fl_str = ",".join(fl_list)   
-fetch_data(KEYS.IATI_KEY, "XM-DAC-5-52", "giz-non-bmz", fl_str)
+    fl_list = CONSTANTS.IATI_ATTRIBUTES
+    fl_str = ",".join(fl_list)   
+    fetch_data(KEYS.IATI_KEY, code, abbreviation, fl_str)
+    transform(abbreviation)
+    print(f"⯄ Finished fetching {key}.")
+
+print("⭐ All data fetched!")
 
 
 

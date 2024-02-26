@@ -2,6 +2,7 @@
 Method to acces IATI Datastore API and store data as json
 """
 
+# Dependencies
 import requests
 import json
 
@@ -53,7 +54,7 @@ def fetch_data(api_key:str, code:str, abbreviation:str, fl_str:str):
         with open(f"../../src/responses/response_{abbreviation}.json", mode='w', encoding='utf-8') as file:
             json.dump(all_docs, file, ensure_ascii=False, indent=4)
             
-        print(f"⯈ {cur_page} page(s) of data from {abbreviation} stored in src/responses/!")
+        print(f"⮩ {cur_page} page(s) of data from {abbreviation} stored in src/responses/!")
 
     except requests.exceptions.RequestException as e:
         print("Error:", e)
