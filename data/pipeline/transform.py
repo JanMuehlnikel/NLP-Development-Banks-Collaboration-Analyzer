@@ -286,7 +286,10 @@ def transform(abbreviation:str):
                     pass
 
     def documents(trans_df):
-        trans_df['docs'] = df['document_link_url']    
+        try:
+            trans_df['docs'] = df['document_link_url']
+        except:
+            trans_df["docs"] = "NaN" 
 
     iati_id(trans_df)
     en_title(trans_df)
