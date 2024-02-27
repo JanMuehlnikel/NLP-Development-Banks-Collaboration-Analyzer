@@ -12,7 +12,8 @@ ORGANIZATIONS = {
     "EIB": ["European Investment Bank", "eib", "XM-DAC-918-3"],
     "WB": ["The World Bank", "wb", "44000"],
     "WBTF": ["World Bank Trust Funds", "wbtf", "XI-IATI-WBTF"],
-    "GIZ-NON-BMZ": ["Non BMZ GIZ Activity", "giz-non-bmz", "XM-DAC-5-52"]
+    "GIZ-NON-BMZ": ["Non BMZ GIZ Activity", "giz-non-bmz", "XM-DAC-5-52"],
+    "AA": ["Auswärtiges Amt", "aa", "XM-DAC-5-7"]
 }
 
 # IATI_ATTRIBUTES contains all relevant IATI Attributes that have to be fetched
