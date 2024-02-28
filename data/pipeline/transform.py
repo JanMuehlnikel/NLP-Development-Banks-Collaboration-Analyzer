@@ -5,6 +5,7 @@ The transformation process can be viewed in more detail as jupyter notebook in n
 
 # DEPENDENCIES
 import pandas as pd
+import numpy as np
 
 def transform(abbreviation:str):
 
@@ -85,6 +86,10 @@ def transform(abbreviation:str):
                 
             except Exception as e:
                 print(f"Error: Index: {index} \n Row: {row} \n Exception: {e}")
+    
+    def main_title(trans_df):
+        trans_df['title_main'] = trans_df["title_en"]
+        trans_df.loc[trans_df['title_main'] == "NaN", 'title_main'] = trans_df['title_other']
 
     def organization(trans_df):
         trans_df['organization'] = df['reporting_org_narrative'].apply(lambda x: x[0])
@@ -112,8 +117,8 @@ def transform(abbreviation:str):
 
             try:
                 if 'description_narrative_xml_lang' in df.columns:
-                    descr_list = row['description_narrative_xml_lang']
-                    descr_row = row['description_narrative']
+                    descr_list = row['description_narrative_xml_lang'] # list with languages provided 
+                    descr_row = row['description_narrative'] # list with the despription narrative of all languages provided
 
                     # nan in pandas is type float
                     # check if nan and if yes take first entry in descr
@@ -123,8 +128,12 @@ def transform(abbreviation:str):
                         else:
                             trans_df["description_en"][index] = descr_row[0]
                     else:
+                        if len(descr_list) == len(descr_row):
+                            descr_len = len(descr_list)
+                        else:
+                            descr_len = len(descr_row)
                         # iterate throug description list
-                        for j in range(0, len(descr_list)):
+                        for j in range(0, descr_len):
                             # if description english
                             if descr_list[j].lower() == "en":
                                 if type(descr_row) == float:
@@ -150,8 +159,15 @@ def transform(abbreviation:str):
                         descr_str += f"{d}; "
                     trans_df["description_en"][index] = descr_str
 
-            except:
-                print(f"Error: Index: {index} \n Row: {row}")
+            except Exception as e:
+                #print(e)
+                #print(f"Error: Index: {index} \n Row: {row}")
+                pass
+
+
+    def main_description(trans_df):
+        trans_df['description_main'] = trans_df.description_en
+        trans_df.loc[trans_df['description_main'] == "NaN", 'description_main'] = trans_df['description_other']
 
     def status(trans_df):
         activity_status = {
@@ -294,11 +310,13 @@ def transform(abbreviation:str):
     iati_id(trans_df)
     en_title(trans_df)
     other_title(trans_df)
+    main_title(trans_df)
     organization(trans_df)
     country(trans_df)
     region(trans_df)
     location(trans_df)
     description(trans_df)
+    main_description(trans_df)
     status(trans_df)
     date(trans_df)
     last_update(trans_df)
