@@ -16,9 +16,9 @@ def merge():
     combined_df = pd.DataFrame()
 
     for key, values in CONSTANTS.ORGANIZATIONS.items():
-        path = f"../../../src/transformed/transformed_{values[1]}.csv"
+        path = f"../../src/transformed/transformed_{values[1]}.csv"
 
         temp_df = pd.read_csv(path)
         combined_df = pd.concat([combined_df, temp_df], ignore_index=True)
 
-    combined_df.to_csv("../../../src/merged_orgas.csv", index=False)
+    combined_df.to_csv("../../src/merged_orgas.csv", index=False)

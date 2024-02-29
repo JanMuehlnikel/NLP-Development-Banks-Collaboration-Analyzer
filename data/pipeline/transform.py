@@ -95,7 +95,20 @@ def transform(abbreviation:str):
         trans_df['organization'] = df['reporting_org_narrative'].apply(lambda x: x[0])
 
     def country(trans_df):
-        trans_df["country"] = df["recipient_country_code"]
+        trans_df["country_code"] = df["recipient_country_code"]
+        trans_df["country"] = "NaN"
+
+        for index, row in df.iterrows():
+            country_list = row["recipient_country_code"]
+
+            if isinstance(country_list, float):
+                trans_df["country"][index] = "NaN"
+            else:
+                country_str = ""
+                for i in country_list:
+                    country_str += f"{i}; "
+                
+                trans_df["country"][index] = country_str
 
     def region(trans_df):
         trans_df['region'] = df['recipient_region_code']
@@ -163,7 +176,6 @@ def transform(abbreviation:str):
                 #print(e)
                 #print(f"Error: Index: {index} \n Row: {row}")
                 pass
-
 
     def main_description(trans_df):
         trans_df['description_main'] = trans_df.description_en
