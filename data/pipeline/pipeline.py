@@ -46,10 +46,3 @@ for key, org_values in CONSTANTS.ORGANIZATIONS.items():
 
 merge()
 print("⭐ All data fetched!")
-
-
-
-
-
-
-

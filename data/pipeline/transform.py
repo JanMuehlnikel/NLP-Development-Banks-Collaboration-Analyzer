@@ -6,6 +6,7 @@ The transformation process can be viewed in more detail as jupyter notebook in n
 # DEPENDENCIES
 import pandas as pd
 import numpy as np
+from sdg_pred import pred_sdg
 
 def transform(abbreviation:str):
 
@@ -334,6 +335,9 @@ def transform(abbreviation:str):
     last_update(trans_df)
     sector_codes(trans_df)
     documents(trans_df)
+
+    # comment out if a prediction of sdg is not wished
+    pred_sdg(trans_df)
 
     # export df as csv to src/transformed/
     trans_df.to_csv(output_file, index=False) 
