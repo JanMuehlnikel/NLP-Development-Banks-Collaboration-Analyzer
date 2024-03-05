@@ -1,3 +1,10 @@
+"""
+Page to analyse the link between crs codes, countries and organizations
+"""
+
+################
+# DEPENDENCIES #
+################
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -5,45 +12,86 @@ import numpy as np
 from importlib.machinery import SourceFileLoader
 crs_overlap = SourceFileLoader("crs_overlap", "nlp/crs_overlap.py").load_module()
 
-# Read in CRS CODELISTS
-crs3_df = pd.read_csv('src/codelists/crs3_codes.csv')
-CRS3_CODES = crs3_df['code'].tolist()
-CRS3_NAME = crs3_df['name'].tolist()
-CRS3_MERGED = {f"{name} - {code}": code for name, code in zip(CRS3_NAME, CRS3_CODES)}
+# CHACHE DATA
+# FETCH NEEDED DATA AND STORE IN CHACHE MEMORY TO SAVE LOADING TIME
+@st.cache_data
+def getCRS3():
+    # Read in CRS3 CODELISTS
+    crs3_df = pd.read_csv('src/codelists/crs3_codes.csv')
+    CRS3_CODES = crs3_df['code'].tolist()
+    CRS3_NAME = crs3_df['name'].tolist()
+    CRS3_MERGED = {f"{name} - {code}": code for name, code in zip(CRS3_NAME, CRS3_CODES)}
 
-# Read in countries from codelist
-country_df = pd.read_csv('src/codelists/country_codes_ISO3166-1alpha-2.csv')
-COUNTRY_CODES = country_df['Alpha-2 code'].tolist()
-CRS3_NAMES = country_df['Country'].tolist()
+    return CRS3_MERGED
 
+@st.cache_data
+def getCRS5():
+    # Read in CRS3 CODELISTS
+    crs5_df = pd.read_csv('src/codelists/crs5_codes.csv')
+    CRS5_CODES = crs5_df['code'].tolist()
+    CRS5_NAME = crs5_df['name'].tolist()
+    CRS5_MERGED = {code: [f"{name} - {code}"] for name, code in zip(CRS5_NAME, CRS5_CODES)}
+
+    return CRS5_MERGED
+
+@st.cache_data
+def getCountry():
+    # Read in countries from codelist
+    country_df = pd.read_csv('src/codelists/country_codes_ISO3166-1alpha-2.csv')
+    COUNTRY_CODES = country_df['Alpha-2 code'].tolist()
+    COUNTRY_NAMES = country_df['Country'].tolist()
+
+    return country_df, COUNTRY_CODES, COUNTRY_NAMES
+
+CRS3_MERGED = getCRS3()
+CRS5_MERGED = getCRS5()
+country_df, COUNTRY_CODES, COUNTRY_NAMES = getCountry()
+
+########
+# PAGE #
+########
 def show_page():
+    # SESSION STATES
+    st.session_state.crs5_option_disabled = True
+
+    # SELECTION
     col1, col2 = st.columns([1, 1])
     with col1:
+        # CRS3 CODE SELECT
         crs3_option = st.selectbox(
             label = 'CRS3 Code',
             index = None,
             placeholder = " ",
             options = CRS3_MERGED,
             )
-        
+         
+        # CRS5 CODE SELECT
+        # Only enable crs5 select field when crs3 code is selected
+        if crs3_option:
+            st.session_state.crs5_option_disabled = False
+
+        # define list of crs5 codes dependend on crs3 codes
+        crs5_list = [txt[0].replace('"', "") for code, txt in CRS5_MERGED.items() if str(code)[:3] == str(crs3_option)[-3:]]
+        # crs5 select field
         crs5_option = st.selectbox(
             label = 'CRS5 Code',
             index = None,
             placeholder = " ",
-            options = ('Email', 'Home phone', 'Mobile phone'),
-            disabled=True
+            options = crs5_list,
+            disabled=st.session_state.crs5_option_disabled
             )
 
     with col2:
         country_option = st.multiselect(
             'Country / Countries',
-            CRS3_NAMES
+            COUNTRY_NAMES
             )
         
     if crs3_option != None:
-        crs3_str = str(CRS3_MERGED[crs3_option])
-        country_name = str(country_option[0])
-        country_code = country_df[country_df['Country'] == country_name]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
-        result_df = crs_overlap.calc_crs3(crs3_str, country_code)
+        if country_option != []:
+            crs3_str = str(CRS3_MERGED[crs3_option])
+            country_name = str(country_option[0])
+            country_code = country_df[country_df['Country'] == country_name]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
+            result_df = crs_overlap.calc_crs3(crs3_str, country_code)
 
-        st.dataframe(data=result_df)
+            st.dataframe(data=result_df)

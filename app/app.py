@@ -1,14 +1,14 @@
 import streamlit as st
-from utils.navbar import show_navbar
-import home, crs
-
-
 # PAGE CONFIG
 st.set_page_config(
     page_title='Development Banks Collaboration Analyzer',
     page_icon='📋',
     layout='wide',
 )
+
+from utils.navbar import show_navbar
+import home, crs
+
 # NAVBAR
 navbar = show_navbar()
 
