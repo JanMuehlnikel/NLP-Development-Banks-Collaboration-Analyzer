@@ -11,6 +11,7 @@ import numpy as np
 
 from importlib.machinery import SourceFileLoader
 crs_overlap = SourceFileLoader("crs_overlap", "nlp/crs_overlap.py").load_module()
+CONSTANTS = SourceFileLoader("CONSTANTS", "config/CONSTANTS.py").load_module()
 
 # CHACHE DATA
 # FETCH NEEDED DATA AND STORE IN CHACHE MEMORY TO SAVE LOADING TIME
@@ -64,7 +65,7 @@ def show_page():
             placeholder = " ",
             options = CRS3_MERGED,
             )
-         
+        
         # CRS5 CODE SELECT
         # Only enable crs5 select field when crs3 code is selected
         if crs3_option:
@@ -82,11 +83,23 @@ def show_page():
             )
 
     with col2:
+        # COUNTRY SELECTION
         country_option = st.multiselect(
             'Country / Countries',
-            COUNTRY_NAMES
+            COUNTRY_NAMES,
+            placeholder=" "
             )
         
+        # ORGA SELECTION
+        orga_list = [k for k, v in CONSTANTS.ORGANIZATIONS.items()]
+        orga_option = st.multiselect(
+            'Development Bank / Organization',
+            orga_list,
+            placeholder=" "
+            )
+    
+    # SHOW RESULTS
+    # CRS table
     if crs3_option != None:
         if country_option != []:
             crs3_str = str(CRS3_MERGED[crs3_option])
@@ -94,4 +107,10 @@ def show_page():
             country_code = country_df[country_df['Country'] == country_name]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
             result_df = crs_overlap.calc_crs3(crs3_str, country_code)
 
+            if crs5_option != None:
+                crs5_str = str(crs5_option[-5:])
+                result_df = crs_overlap.calc_crs5(crs5_str, country_code)
+                
+            
             st.dataframe(data=result_df)
+
