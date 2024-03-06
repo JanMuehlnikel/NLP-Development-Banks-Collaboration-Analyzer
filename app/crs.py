@@ -111,12 +111,9 @@ def show_page():
                 ]
             result_df = crs_overlap.calc_crs3(crs3_str, country_codes)
             
-            st.write(country_codes)
-            """
             if crs5_option != None:
                 crs5_str = str(crs5_option[-5:])
                 result_df = crs_overlap.calc_crs5(crs5_str, country_codes)
-            """     
             
             st.dataframe(data=result_df)
 
