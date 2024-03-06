@@ -103,14 +103,20 @@ def show_page():
     if crs3_option != None:
         if country_option != []:
             crs3_str = str(CRS3_MERGED[crs3_option])
-            country_name = str(country_option[0])
-            country_code = country_df[country_df['Country'] == country_name]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
-            result_df = crs_overlap.calc_crs3(crs3_str, country_code)
+            country_names = [str(c) for c in country_option]
 
+            country_codes = [ 
+                country_df[country_df['Country'] == c]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
+                for c in country_names
+                ]
+            result_df = crs_overlap.calc_crs3(crs3_str, country_codes)
+            
+            st.write(country_codes)
+            """
             if crs5_option != None:
                 crs5_str = str(crs5_option[-5:])
-                result_df = crs_overlap.calc_crs5(crs5_str, country_code)
-                
+                result_df = crs_overlap.calc_crs5(crs5_str, country_codes)
+            """     
             
             st.dataframe(data=result_df)
 
