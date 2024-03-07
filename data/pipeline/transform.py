@@ -32,6 +32,14 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
         trans_df["orga_abbreviation"] = abbreviation
         trans_df["orga_full_name"] = orga_full_name
 
+    def project_number(trans_df):
+        try:
+            project_number = iati_orga_id.split("-")[1]
+
+            trans_df["project_number"] = project_number
+        except:
+            trans_df["project_number"] = "NaN"
+
     def en_title(trans_df):
         trans_df["title_en"] = "NaN"
 
@@ -327,6 +335,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
 
     iati_id(trans_df)
     iati_orga_ids(trans_df)
+    #project_number(trans_df)
     en_title(trans_df)
     other_title(trans_df)
     main_title(trans_df)
