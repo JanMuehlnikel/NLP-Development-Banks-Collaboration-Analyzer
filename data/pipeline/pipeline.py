@@ -33,15 +33,16 @@ for key, org_values in CONSTANTS.ORGANIZATIONS.items():
     fl_list = CONSTANTS.IATI_ATTRIBUTES
     fl_str = ",".join(fl_list)   
 
-    # abbiviation gets filename
-    abbreviation = org_values[1]
-    # iati code the access IATI orga data
-    code = org_values[2]
+    # fetch abbreviation, fullname and IATI Oraganization ID from CONSTANTS.py to use in pipeline
+    abbreviation = org_values[1] # abbiviation becomes the filename
+    orga_full_name = org_values[0] 
+    iati_org_id = org_values[2]
+
 
     fl_list = CONSTANTS.IATI_ATTRIBUTES
     fl_str = ",".join(fl_list)   
-    fetch_data(KEYS.IATI_KEY, code, abbreviation, fl_str)
-    transform(abbreviation)
+    fetch_data(KEYS.IATI_KEY, iati_org_id, abbreviation, fl_str)
+    transform(abbreviation, iati_org_id, orga_full_name)
     print(f"⯄ Finished fetching {key}.")
 
 merge()

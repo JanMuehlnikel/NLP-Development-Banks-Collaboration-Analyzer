@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 from sdg_pred import pred_sdg
 
-def transform(abbreviation:str):
+def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
 
     # Set PARAMS
     response_folder = "../../src/responses/"
@@ -26,6 +26,11 @@ def transform(abbreviation:str):
 
     def iati_id(trans_df):
         trans_df["iati_id"] = df["iati_identifier"].values
+
+    def iati_orga_ids(trans_df):
+        trans_df["iati_orga_id"] = iati_orga_id
+        trans_df["orga_abbreviation"] = abbreviation
+        trans_df["orga_full_name"] = orga_full_name
 
     def en_title(trans_df):
         trans_df["title_en"] = "NaN"
@@ -321,6 +326,7 @@ def transform(abbreviation:str):
             trans_df["docs"] = "NaN" 
 
     iati_id(trans_df)
+    iati_orga_ids(trans_df)
     en_title(trans_df)
     other_title(trans_df)
     main_title(trans_df)
@@ -337,7 +343,7 @@ def transform(abbreviation:str):
     documents(trans_df)
 
     # comment out if a prediction of sdg is not wished
-    pred_sdg(trans_df)
+    # pred_sdg(trans_df)
 
     # export df as csv to src/transformed/
     trans_df.to_csv(output_file, index=False) 

@@ -91,7 +91,7 @@ def show_page():
             )
         
         # ORGA SELECTION
-        orga_list = [k for k, v in CONSTANTS.ORGANIZATIONS.items()]
+        orga_list = [f"{v[0]} - {k}" for k, v in CONSTANTS.ORGANIZATIONS.items()]
         orga_option = st.multiselect(
             'Development Bank / Organization',
             orga_list,
@@ -99,6 +99,9 @@ def show_page():
             )
     
     # SHOW RESULTS
+    # Extract Orgas from multiselect
+    selected_orgas = [str(o).split(" - ")[1] for o in orga_option]
+    selected_orgas_code = [CONSTANTS.ORGANIZATIONS[o][2] for o in selected_orgas]
     # CRS table
     if crs3_option != None:
         if country_option != []:
@@ -109,11 +112,11 @@ def show_page():
                 country_df[country_df['Country'] == c]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
                 for c in country_names
                 ]
-            result_df = crs_overlap.calc_crs3(crs3_str, country_codes)
+            result_df = crs_overlap.calc_crs3(crs3_str, country_codes, selected_orgas_code)
             
             if crs5_option != None:
                 crs5_str = str(crs5_option[-5:])
-                result_df = crs_overlap.calc_crs5(crs5_str, country_codes)
+                result_df = crs_overlap.calc_crs5(crs5_str, country_codes, selected_orgas_code)
             
             st.dataframe(data=result_df)
 
