@@ -10,7 +10,6 @@ import pandas as pd
 import numpy as np
 
 
-
 def pred_sdg(df):
     print("Debugger: Pred started")
     # Load model and tokenizer: https://huggingface.co/jonas/sdg_classifier_osdg
@@ -25,7 +24,6 @@ def pred_sdg(df):
     df["sgd_pred_str"] = "NaN"
 
     # Iterate through df and predict sdg
-
     fulll_len_df = len(df)
     for index, row in df.iterrows():
         print(f"{index} / {fulll_len_df}")
