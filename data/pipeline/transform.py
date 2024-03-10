@@ -352,7 +352,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
     documents(trans_df)
 
     # comment out if a prediction of sdg is not wished
-    # pred_sdg(trans_df)
+    pred_sdg(trans_df)
 
     # export df as csv to src/transformed/
     trans_df.to_csv(output_file, index=False) 

@@ -11,7 +11,7 @@ def calc_crs3(crs3_code: str, countries: list, orga_codes: list):
     country_filtered_df = pd.DataFrame()
     for c in countries:
         c_df = filtered_crs_df[filtered_crs_df["country"].str.contains(c, na=False)]
-        country_filtered_df = country_filtered_df.append(c_df, ignore_index=True)
+        country_filtered_df = pd.concat([country_filtered_df, c_df], ignore_index=True)
     
     # filter for orga code
     filtered_df = country_filtered_df[country_filtered_df['iati_orga_id'].isin(orga_codes)]
@@ -26,7 +26,7 @@ def calc_crs5(crs5_code:str, countries:list, orga_codes: list):
     country_filtered_df = pd.DataFrame()
     for c in countries:
         c_df = filtered_crs_df[filtered_crs_df["country"].str.contains(c, na=False)]
-        country_filtered_df = country_filtered_df.append(c_df, ignore_index=True)
+        country_filtered_df = pd.concat([country_filtered_df, c_df], ignore_index=True)
     
     # filter for orga code
     filtered_df = country_filtered_df[country_filtered_df['iati_orga_id'].isin(orga_codes)]
