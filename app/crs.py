@@ -18,7 +18,7 @@ CONSTANTS = SourceFileLoader("CONSTANTS", "config/CONSTANTS.py").load_module()
 @st.cache_data
 def getCRS3():
     # Read in CRS3 CODELISTS
-    crs3_df = pd.read_csv('src/codelists/crs3_codes.csv')
+    crs3_df = pd.read_csv('app_src/codelists/crs3_codes.csv')
     CRS3_CODES = crs3_df['code'].tolist()
     CRS3_NAME = crs3_df['name'].tolist()
     CRS3_MERGED = {f"{name} - {code}": code for name, code in zip(CRS3_NAME, CRS3_CODES)}
