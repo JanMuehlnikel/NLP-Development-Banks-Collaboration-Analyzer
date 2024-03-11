@@ -7,7 +7,7 @@ Page to analyse the link between crs codes, countries and organizations
 ################
 import streamlit as st
 import pandas as pd
-import numpy as np
+import utils.crs_table as crs_table
 
 from importlib.machinery import SourceFileLoader
 crs_overlap = SourceFileLoader("crs_overlap", "data/models/crs_overlap.py").load_module()
@@ -118,5 +118,8 @@ def show_page():
                 crs5_str = str(crs5_option[-5:])
                 result_df = crs_overlap.calc_crs5(crs5_str, country_codes, selected_orgas_code)
             
-            st.dataframe(data=result_df)
+            # TABLE FOR CRS OVERLAP
+            crs_table.show_table(result_df)
+
+            
 

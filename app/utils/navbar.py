@@ -14,6 +14,8 @@ from streamlit_option_menu import option_menu # https://github.com/victoryhb/str
 # light_red: #eba1a3
 
 def show_navbar():
+    st.markdown("<h1 style='color: red;'>THIS APP IS WORK IN PROGRESS ...</h1>", unsafe_allow_html=True)
+
     navbar = option_menu(None, ["Home", "Sector Matches", 'Similarity Matches'], 
         icons=['house', 'list-task', "list-task", 'list-task'], 
         menu_icon="cast", default_index=0, orientation="horizontal",
