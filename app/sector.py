@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 
 from importlib.machinery import SourceFileLoader
-crs_overlap = SourceFileLoader("crs_overlap", "nlp/crs_overlap.py").load_module()
+crs_overlap = SourceFileLoader("crs_overlap", "data/models/crs_overlap.py").load_module()
 CONSTANTS = SourceFileLoader("CONSTANTS", "config/CONSTANTS.py").load_module()
 
 # CHACHE DATA
