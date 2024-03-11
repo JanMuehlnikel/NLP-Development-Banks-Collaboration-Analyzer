@@ -18,7 +18,7 @@ CONSTANTS = SourceFileLoader("CONSTANTS", "config/CONSTANTS.py").load_module()
 @st.cache_data
 def getCRS3():
     # Read in CRS3 CODELISTS
-    crs3_df = pd.read_csv('src/codelists/crs3_codes.csv')
+    crs3_df = pd.read_csv('app/src/codelists/crs3_codes.csv')
     CRS3_CODES = crs3_df['code'].tolist()
     CRS3_NAME = crs3_df['name'].tolist()
     CRS3_MERGED = {f"{name} - {code}": code for name, code in zip(CRS3_NAME, CRS3_CODES)}
@@ -28,7 +28,7 @@ def getCRS3():
 @st.cache_data
 def getCRS5():
     # Read in CRS3 CODELISTS
-    crs5_df = pd.read_csv('src/codelists/crs5_codes.csv')
+    crs5_df = pd.read_csv('app/src/codelists/crs5_codes.csv')
     CRS5_CODES = crs5_df['code'].tolist()
     CRS5_NAME = crs5_df['name'].tolist()
     CRS5_MERGED = {code: [f"{name} - {code}"] for name, code in zip(CRS5_NAME, CRS5_CODES)}
@@ -38,7 +38,7 @@ def getCRS5():
 @st.cache_data
 def getCountry():
     # Read in countries from codelist
-    country_df = pd.read_csv('src/codelists/country_codes_ISO3166-1alpha-2.csv')
+    country_df = pd.read_csv('app/src/codelists/country_codes_ISO3166-1alpha-2.csv')
     COUNTRY_CODES = country_df['Alpha-2 code'].tolist()
     COUNTRY_NAMES = country_df['Country'].tolist()
 
