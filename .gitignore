@@ -1,6 +1,5 @@
 config/KEYS.py
-src/responses
-src/transformed
+src/
 
 
 
