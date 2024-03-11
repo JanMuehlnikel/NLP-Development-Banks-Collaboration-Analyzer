@@ -4,6 +4,7 @@ def show_table(data_df):
     return st.dataframe(
             data_df[["title_main", "orga_abbreviation", "description_main", "country", "crs_3_code", "crs_5_code"]],
             use_container_width = True,
+            height = 35 + 35 * len(data_df),
             column_config={
                 "orga_abbreviation": st.column_config.TextColumn(
                     "Organization",
