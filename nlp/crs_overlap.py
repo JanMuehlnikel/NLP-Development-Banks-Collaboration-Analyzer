@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Read merged data frame
-df = pd.read_csv("src/merged_orgas.csv")
+df = pd.read_csv("src\merged_orgas_.csv")
 
 def calc_crs3(crs3_code: str, countries: list, orga_codes: list):
     # filter for crs code
