@@ -36,6 +36,14 @@ def getCRS5():
     return CRS5_MERGED
 
 @st.cache_data
+def getSDG():
+    # Read in SDG CODELISTS
+    sdg_df = pd.read_csv('app/src/codelists/sdg_goals.csv')
+    SDG_NAMES = sdg_df['name'].tolist()
+
+    return SDG_NAMES
+
+@st.cache_data
 def getCountry():
     # Read in countries from codelist
     country_df = pd.read_csv('app/src/codelists/country_codes_ISO3166-1alpha-2.csv')
@@ -46,80 +54,144 @@ def getCountry():
 
 CRS3_MERGED = getCRS3()
 CRS5_MERGED = getCRS5()
+SDG_NAMES = getSDG()
 country_df, COUNTRY_CODES, COUNTRY_NAMES = getCountry()
 
 ########
 # PAGE #
 ########
 def show_page():
-    # SESSION STATES
-    st.session_state.crs5_option_disabled = True
-
-    # SELECTION
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        # CRS3 CODE SELECT
-        crs3_option = st.selectbox(
-            label = 'CRS3 Code',
-            index = None,
-            placeholder = " ",
-            options = CRS3_MERGED,
-            )
-        
-        # CRS5 CODE SELECT
-        # Only enable crs5 select field when crs3 code is selected
-        if crs3_option:
-            st.session_state.crs5_option_disabled = False
-
-        # define list of crs5 codes dependend on crs3 codes
-        crs5_list = [txt[0].replace('"', "") for code, txt in CRS5_MERGED.items() if str(code)[:3] == str(crs3_option)[-3:]]
-        # crs5 select field
-        crs5_option = st.selectbox(
-            label = 'CRS5 Code',
-            index = None,
-            placeholder = " ",
-            options = crs5_list,
-            disabled=st.session_state.crs5_option_disabled
-            )
-
-    with col2:
-        # COUNTRY SELECTION
-        country_option = st.multiselect(
-            'Country / Countries',
-            COUNTRY_NAMES,
-            placeholder=" "
-            )
-        
-        # ORGA SELECTION
-        orga_list = [f"{v[0]} - {k}" for k, v in CONSTANTS.ORGANIZATIONS.items()]
-        orga_option = st.multiselect(
-            'Development Bank / Organization',
-            orga_list,
-            placeholder=" "
-            )
     
-    # SHOW RESULTS
-    # Extract Orgas from multiselect
-    selected_orgas = [str(o).split(" - ")[1] for o in orga_option]
-    selected_orgas_code = [CONSTANTS.ORGANIZATIONS[o][2] for o in selected_orgas]
-    # CRS table
-    if crs3_option != None:
-        if country_option != []:
-            crs3_str = str(CRS3_MERGED[crs3_option])
-            country_names = [str(c) for c in country_option]
+    def show_crs():
+        # SESSION STATES
+        st.session_state.crs5_option_disabled = True
 
-            country_codes = [ 
-                country_df[country_df['Country'] == c]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
-                for c in country_names
-                ]
-            result_df = crs_overlap.calc_crs3(crs3_str, country_codes, selected_orgas_code)
+        # SELECTION
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            # CRS3 CODE SELECT
+            crs3_option = st.selectbox(
+                label = 'CRS3 Code',
+                index = None,
+                placeholder = "Select",
+                options = CRS3_MERGED,
+                )
             
-            if crs5_option != None:
-                crs5_str = str(crs5_option[-5:])
-                result_df = crs_overlap.calc_crs5(crs5_str, country_codes, selected_orgas_code)
-            
-            # TABLE FOR CRS OVERLAP
-            crs_table.show_table(result_df)
+            # CRS5 CODE SELECT
+            # Only enable crs5 select field when crs3 code is selected
+            if crs3_option:
+                st.session_state.crs5_option_disabled = False
 
+            # define list of crs5 codes dependend on crs3 codes
+            crs5_list = [txt[0].replace('"', "") for code, txt in CRS5_MERGED.items() if str(code)[:3] == str(crs3_option)[-3:]]
+            # crs5 select field
+            crs5_option = st.selectbox(
+                label = 'CRS5 Code',
+                index = None,
+                placeholder = "Select",
+                options = crs5_list,
+                disabled=st.session_state.crs5_option_disabled
+                )
+
+        with col2:
+            # COUNTRY SELECTION
+            country_option = st.multiselect(
+                'Country / Countries',
+                COUNTRY_NAMES,
+                placeholder="Select"
+                )
             
+            # ORGA SELECTION
+            orga_list = [f"{v[0]} - {k}" for k, v in CONSTANTS.ORGANIZATIONS.items()]
+            orga_option = st.multiselect(
+                'Development Bank / Organization',
+                orga_list,
+                placeholder="Select"
+                )
+        
+        # SHOW RESULTS
+        # Extract Orgas from multiselect
+        selected_orgas = [str(o).split(" - ")[1] for o in orga_option]
+        selected_orgas_code = [CONSTANTS.ORGANIZATIONS[o][2] for o in selected_orgas]
+        # CRS table
+        if crs3_option != None:
+            if country_option != []:
+                crs3_str = str(CRS3_MERGED[crs3_option])
+                country_names = [str(c) for c in country_option]
+
+                country_codes = [ 
+                    country_df[country_df['Country'] == c]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
+                    for c in country_names
+                    ]
+                result_df = crs_overlap.calc_crs3(crs3_str, country_codes, selected_orgas_code)
+                
+                if crs5_option != None:
+                    crs5_str = str(crs5_option[-5:])
+                    result_df = crs_overlap.calc_crs5(crs5_str, country_codes, selected_orgas_code)
+                
+                # TABLE FOR CRS OVERLAP
+                crs_table.show_table(result_df)
+
+    def show_sdg():
+        # SELECTION
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            # CRS3 CODE SELECT
+            sdg_option = st.selectbox(
+                label = 'SDG',
+                index = None,
+                placeholder = "Select SDG",
+                options = SDG_NAMES,
+                )
+
+        with col2:
+            # COUNTRY SELECTION
+            country_option = st.multiselect(
+                'Country / Countries',
+                COUNTRY_NAMES,
+                placeholder="Select"
+                )
+            
+            # ORGA SELECTION
+            orga_list = [f"{v[0]} - {k}" for k, v in CONSTANTS.ORGANIZATIONS.items()]
+            orga_option = st.multiselect(
+                'Development Bank / Organization',
+                orga_list,
+                placeholder="Select"
+                )
+            
+
+        # SHOW RESULTS
+        # Extract Orgas from multiselect
+        selected_orgas = [str(o).split(" - ")[1] for o in orga_option]
+        selected_orgas_code = [CONSTANTS.ORGANIZATIONS[o][2] for o in selected_orgas]
+        # CRS table
+        if sdg_option != None:
+            if country_option != []:
+                sdg_str = str(SDG_NAMES[sdg_option])
+                country_names = [str(c) for c in country_option]
+
+                country_codes = [ 
+                    country_df[country_df['Country'] == c]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
+                    for c in country_names
+                    ]
+                result_df = sdg_overlap.calc_crs3(sdg_str, country_codes, selected_orgas_code)
+                
+                # TABLE FOR CRS OVERLAP
+                sdg_table.show_table(result_df)
+
+    # SELECT IF CRS or SDG Match
+    match_option = st.selectbox(
+                label = 'Matching Method',
+                index = 0,
+                placeholder = "Select",
+                options = ["CRS", "SDG"],
+                )         
+    
+    st.write("------------------")
+
+    if match_option == "CRS":
+        show_crs()
+    elif match_option == "SDG":
+        show_sdg()
 
