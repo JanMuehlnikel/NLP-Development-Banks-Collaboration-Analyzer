@@ -13,6 +13,7 @@ This file contains a pipeline which can be used to extract all organizational da
 from fetch_api import fetch_data
 from transform import transform
 from merge_csv import merge
+from app_files import create_files
 
 # Your current dirctory has to be /data/pipeline/ to not get FileNotFoundError
 from importlib.machinery import SourceFileLoader
@@ -46,4 +47,6 @@ for key, org_values in CONSTANTS.ORGANIZATIONS.items():
     print(f"⯄ Finished fetching {key}.")
 
 merge()
+create_files()
+
 print("⭐ All data fetched!")

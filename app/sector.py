@@ -8,9 +8,11 @@ Page to analyse the link between crs codes, countries and organizations
 import streamlit as st
 import pandas as pd
 import utils.crs_table as crs_table
+import utils.sdg_table as sdg_table
 
 from importlib.machinery import SourceFileLoader
 crs_overlap = SourceFileLoader("crs_overlap", "data/models/crs_overlap.py").load_module()
+sdg_overlap = SourceFileLoader("sdg_overlap", "data/models/sdg_overlap.py").load_module()
 CONSTANTS = SourceFileLoader("CONSTANTS", "config/CONSTANTS.py").load_module()
 
 # CHACHE DATA
@@ -168,16 +170,16 @@ def show_page():
         # CRS table
         if sdg_option != None:
             if country_option != []:
-                sdg_str = str(SDG_NAMES[sdg_option])
+                sdg_int = int(sdg_option.split(" ")[0].replace(".", ""))
                 country_names = [str(c) for c in country_option]
 
                 country_codes = [ 
                     country_df[country_df['Country'] == c]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
                     for c in country_names
                     ]
-                result_df = sdg_overlap.calc_crs3(sdg_str, country_codes, selected_orgas_code)
+                result_df = sdg_overlap.calc_crs3(sdg_int, country_codes, selected_orgas_code)
                 
-                # TABLE FOR CRS OVERLAP
+                # TABLE FOR SDG OVERLAP
                 sdg_table.show_table(result_df)
 
     # SELECT IF CRS or SDG Match
