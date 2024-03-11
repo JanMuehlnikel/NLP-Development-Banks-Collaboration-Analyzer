@@ -7,7 +7,7 @@ st.set_page_config(
 )
 
 from utils.navbar import show_navbar
-import home, crs
+import home, sector
 
 # NAVBAR
 navbar = show_navbar()
@@ -15,6 +15,6 @@ navbar = show_navbar()
 # Navigation
 if navbar == "Home":
     st.session_state.page = home.show_page()
-elif navbar == "CRS":
-    st.session_state.page = crs.show_page()
+elif navbar == "Sector Matches":
+    st.session_state.page = sector.show_page()
 
