@@ -40,6 +40,52 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
         except:
             trans_df["project_number"] = "NaN"
 
+    def secondary_orga(trans_df):
+        trans_df["client"] = abbreviation.upper()
+
+        # For Auswärtiges Amt
+        if iati_orga_id == "XM-DAC-5-7":
+            for index, row in df.iterrows():
+                part_orga_row = row['participating_org_narrative'][0]
+                try:
+                    # GIZ
+                    if part_orga_row == "Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ) GmbH":
+                        trans_df["orga_abbreviation"][index] = "giz"
+                        trans_df["orga_full_name"][index] = "Deutsche Gesellschaft für Internationale Zusammenarbeit GmbH"
+                    # KfW
+                    elif part_orga_row == "Kreditanstalt für Wiederaufbau":
+                        trans_df["orga_abbreviation"][index] = "kfw"
+                        trans_df["orga_full_name"][index] = "Kreditanstalt für Wiederaufbau"
+                    # AA Other
+                    else:
+                        trans_df["orga_abbreviation"][index] = "aa-other"
+                        trans_df["orga_full_name"][index] = "Auswärtiges Amt - Other"
+
+                except Exception as e:
+                    print(f"error: {e}")
+
+        # For BMZ
+        elif iati_orga_id == "DE-1":
+            for index, row in df.iterrows():
+                part_orga_row = row['participating_org_ref']
+                try:
+                    # GIZ
+                    if "XM-DAC-5-52" in part_orga_row:
+                        trans_df["orga_abbreviation"][index] = "giz"
+                        trans_df["orga_full_name"][index] = "Deutsche Gesellschaft für Internationale Zusammenarbeit GmbH"
+                    # KfW
+                    elif "XM-DAC-5-2" in part_orga_row:
+                        trans_df["orga_abbreviation"][index] = "kfw"
+                        trans_df["orga_full_name"][index] = "Kreditanstalt für Wiederaufbau"
+
+                except Exception as e:
+                    print(f"error: {e}")
+
+        #For Non BMZ GIZ
+        elif iati_orga_id == "XM-DAC-5-52":
+            trans_df["orga_abbreviation"] = "giz"
+            trans_df["orga_full_name"] = "Deutsche Gesellschaft für Internationale Zusammenarbeit GmbH"
+
     def en_title(trans_df):
         trans_df["title_en"] = "NaN"
 
@@ -333,9 +379,23 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
         except:
             trans_df["docs"] = "NaN" 
 
+    def title_and_decription(trans_df):
+        trans_df["title_and_description"] = ""
+
+        for index, row in trans_df.iterrows():
+            try:
+                title_row = row['title_main']
+                descr_row = row['description_main']
+
+                trans_df["title_and_description"][index] = str(title_row + ". " + descr_row).replace(";", " ").replace("..", ".")
+            except:
+                trans_df["title_and_description"][index] = ""
+
+
     iati_id(trans_df)
     iati_orga_ids(trans_df)
     #project_number(trans_df)
+    secondary_orga(trans_df)
     en_title(trans_df)
     other_title(trans_df)
     main_title(trans_df)
@@ -350,6 +410,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
     last_update(trans_df)
     sector_codes(trans_df)
     documents(trans_df)
+    title_and_decription(trans_df)
 
     # comment out if a prediction of sdg is not wished
     pred_sdg(trans_df)

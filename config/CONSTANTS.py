@@ -16,6 +16,12 @@ ORGANIZATIONS = {
     "AA": ["Auswärtiges Amt", "aa", "XM-DAC-5-7"]
 }
 
+SECONDARY_ORGANIZATIONS = {
+    "giz": ["GIZ", "Deutsche Gesellschaft für Internationale Zusammenarbeit GmbH", "XM-DAC-5-52"],
+    "kfw": ["KfW", "Kreditanstalt für Wiederaufbau", "XM-DAC-5-2"],
+    "aa-other": ["AA", "Auswärtiges Amt (other client)"]
+}
+
 # IATI_ATTRIBUTES contains all relevant IATI Attributes that have to be fetched
 
 IATI_ATTRIBUTES = [
@@ -24,6 +30,8 @@ IATI_ATTRIBUTES = [
     "title_narrative_xml_lang",
     "reporting_org_narrative",
     "reporting_org_ref",
+    "participating_org_narrative",
+    "participating_org_ref",
     "contact_info_organisation_narrative",
     "contact_info_department_narrative",
     "description_narrative_xml_lang",
