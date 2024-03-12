@@ -21,9 +21,8 @@ def calc_crs3(crs3_list: str, countries: list, orga_codes: list):
 
     return filtered_df
 
-def calc_crs5(crs5_code:str, countries:list, orga_codes: list):
-    # filter for crs code
-    filtered_crs_df = df[df["crs_5_code"].str.contains(crs5_code, na=False)]
+def calc_crs5(crs5_list: str, countries: list, orga_codes: list):
+    filtered_crs_df = df[df['crs_5_code'].apply(lambda x: contains_code(x, crs5_list))]
 
     # filter for countries
     country_filtered_df = pd.DataFrame()
@@ -35,3 +34,4 @@ def calc_crs5(crs5_code:str, countries:list, orga_codes: list):
     filtered_df = country_filtered_df[country_filtered_df['iati_orga_id'].isin(orga_codes)]
 
     return filtered_df
+

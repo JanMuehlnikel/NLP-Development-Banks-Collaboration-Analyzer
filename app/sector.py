@@ -68,38 +68,33 @@ def show_page():
         # SESSION STATES
         st.session_state.crs5_option_disabled = True
 
-        # SELECTION
+        # SELECTION FIELDS
         col1, col2 = st.columns([1, 1])
         with col1:
-            # CRS3 CODE SELECT
-            """
-            crs3_option = st.selectbox(
-                label = 'CRS3 Code',
-                index = None,
-                placeholder = "Select",
-                options = CRS3_MERGED,
-                )
-            """
-
+            #####################
+            # CRS 3 CODE SELECT #
+            #####################
             crs3_option = st.multiselect(
                 'CRS 3',
                 CRS3_MERGED,
                 placeholder="Select"
                 )
             
-            # CRS5 CODE SELECT
+            #####################
+            # CRS 5 CODE SELECT #
+            #####################
             # Only enable crs5 select field when crs3 code is selected
-            if crs3_option:
+            if crs3_option != []:
                 st.session_state.crs5_option_disabled = False
 
             # define list of crs5 codes dependend on crs3 codes
-            crs5_list = [txt[0].replace('"', "") for code, txt in CRS5_MERGED.items() if str(code)[:3] == str(crs3_option)[-3:]]
+            crs5_list = [txt[0].replace('"', "") for crs3_item in crs3_option for code, txt in CRS5_MERGED.items() if str(code)[:3] == str(crs3_item)[-3:]]
+
             # crs5 select field
-            crs5_option = st.selectbox(
-                label = 'CRS5 Code',
-                index = None,
-                placeholder = "Select",
-                options = crs5_list,
+            crs5_option = st.multiselect(
+                'CRS 5',
+                crs5_list,
+                placeholder="Select",
                 disabled=st.session_state.crs5_option_disabled
                 )
 
@@ -119,16 +114,18 @@ def show_page():
                 placeholder="Select"
                 )
         
-        # SHOW RESULTS
+        ################
+        # SHOW RESULTS #
+        ################
         # Extract Orgas from multiselect
         selected_orgas = [str(o).split(" - ")[1] for o in orga_option]
         selected_orgas_code = [CONSTANTS.ORGANIZATIONS[o][2] for o in selected_orgas]
 
         if crs3_option != None:
             if country_option != []:
-                #crs3_str = str(CRS3_MERGED[crs3_option])
+                # CRS 3 codes from option
                 crs3_list = [i[-3:] for i in crs3_option]
-                st.write(crs3_list)
+
                 # get country codes from multiselect
                 country_names = [str(c) for c in country_option]
                 country_codes = [ 
@@ -138,9 +135,10 @@ def show_page():
                 
                 result_df = crs_overlap.calc_crs3(crs3_list, country_codes, selected_orgas_code)
                 
-                if crs5_option != None:
-                    crs5_str = str(crs5_option[-5:])
-                    result_df = crs_overlap.calc_crs5(crs5_str, country_codes, selected_orgas_code)
+                if crs5_option != []:
+                    # CRS 5 codes from option
+                    crs5_list = [i[-5:] for i in crs5_option]
+                    result_df = crs_overlap.calc_crs5(crs5_list, country_codes, selected_orgas_code)
                 
                 # TABLE FOR CRS OVERLAP
                 crs_table.show_table(result_df)
