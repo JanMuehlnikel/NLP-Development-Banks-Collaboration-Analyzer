@@ -22,6 +22,19 @@ SECONDARY_ORGANIZATIONS = {
     "aa-other": ["AA", "Auswärtiges Amt (other client)"]
 }
 
+ORGA_SEARCH = {
+    "BMZ": ["Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung"],
+    "IAD": ["Inter-American Development Bank"],
+    "ADB": ["Asian Development Bank", "adb"],
+    "AfDB": ["African Development Bank"],
+    "EIB": ["European Investment Bank"],
+    "WB": ["The World Bank"],
+    "WBTF": ["World Bank Trust Funds"],
+    "AA-OTHER": ["Auswärtiges Amt - Other Customer"],
+    "GIZ": ["Deutsche Gesellschaft für Internationale Zusammenarbeit GmbH"],
+    "KFW": ["Kreditanstalt für Wiederaufbau"],
+}
+
 # IATI_ATTRIBUTES contains all relevant IATI Attributes that have to be fetched
 
 IATI_ATTRIBUTES = [

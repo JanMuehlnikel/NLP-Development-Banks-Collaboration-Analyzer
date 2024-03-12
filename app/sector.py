@@ -107,7 +107,7 @@ def show_page():
                 )
             
             # ORGA SELECTION
-            orga_list = [f"{v[0]} - {k}" for k, v in CONSTANTS.ORGANIZATIONS.items()]
+            orga_list = [f"{v[0]} ({k})" for k, v in CONSTANTS.ORGA_SEARCH.items()]
             orga_option = st.multiselect(
                 'Development Bank / Organization',
                 orga_list,
@@ -118,8 +118,7 @@ def show_page():
         # SHOW RESULTS #
         ################
         # Extract Orgas from multiselect
-        selected_orgas = [str(o).split(" - ")[1] for o in orga_option]
-        selected_orgas_code = [CONSTANTS.ORGANIZATIONS[o][2] for o in selected_orgas]
+        selected_orgas = [str(o).replace(")", "").lower().split("(")[1] for o in orga_option]
 
         if crs3_option != None:
             if country_option != []:
@@ -133,12 +132,12 @@ def show_page():
                     for c in country_names
                     ]
                 
-                result_df = crs_overlap.calc_crs3(crs3_list, country_codes, selected_orgas_code)
+                result_df = crs_overlap.calc_crs3(crs3_list, country_codes, selected_orgas)
                 
                 if crs5_option != []:
                     # CRS 5 codes from option
                     crs5_list = [i[-5:] for i in crs5_option]
-                    result_df = crs_overlap.calc_crs5(crs5_list, country_codes, selected_orgas_code)
+                    result_df = crs_overlap.calc_crs5(crs5_list, country_codes, selected_orgas)
                 
                 # TABLE FOR CRS OVERLAP
                 crs_table.show_table(result_df)
@@ -164,7 +163,7 @@ def show_page():
                 )
             
             # ORGA SELECTION
-            orga_list = [f"{v[0]} - {k}" for k, v in CONSTANTS.ORGANIZATIONS.items()]
+            orga_list = [f"{v[0]} ({k})" for k, v in CONSTANTS.ORGA_SEARCH.items()]
             orga_option = st.multiselect(
                 'Development Bank / Organization',
                 orga_list,
@@ -174,8 +173,8 @@ def show_page():
 
         # SHOW RESULTS
         # Extract Orgas from multiselect
-        selected_orgas = [str(o).split(" - ")[1] for o in orga_option]
-        selected_orgas_code = [CONSTANTS.ORGANIZATIONS[o][2] for o in selected_orgas]
+        selected_orgas = [str(o).replace(")", "").lower().split("(")[1] for o in orga_option]
+
         # CRS table
         if sdg_option != None:
             if country_option != []:
@@ -186,7 +185,7 @@ def show_page():
                     country_df[country_df['Country'] == c]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
                     for c in country_names
                     ]
-                result_df = sdg_overlap.calc_crs3(sdg_int, country_codes, selected_orgas_code)
+                result_df = sdg_overlap.calc_crs3(sdg_int, country_codes, selected_orgas)
                 
                 # TABLE FOR SDG OVERLAP
                 sdg_table.show_table(result_df)
