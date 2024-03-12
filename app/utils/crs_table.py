@@ -4,13 +4,18 @@ def show_table(data_df):
     st.write("------------------")
     
     st.dataframe(
-        data_df[["title_main", "orga_abbreviation", "description_main", "country", "crs_3_code", "crs_5_code"]],
+        data_df[["title_main", "orga_abbreviation", "client", "description_main", "country", "crs_3_code", "crs_5_code"]],
         use_container_width = True,
         height = 35 + 35 * len(data_df),
         column_config={
             "orga_abbreviation": st.column_config.TextColumn(
                 "Organization",
                 help="If description not in English, description in other language provided",
+                disabled=True
+            ),
+            "client": st.column_config.TextColumn(
+                "Client",
+                help="Client organization of customer",
                 disabled=True
             ),
             "title_main": st.column_config.TextColumn(
