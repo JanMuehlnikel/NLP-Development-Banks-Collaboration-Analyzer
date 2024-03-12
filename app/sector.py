@@ -72,11 +72,19 @@ def show_page():
         col1, col2 = st.columns([1, 1])
         with col1:
             # CRS3 CODE SELECT
+            """
             crs3_option = st.selectbox(
                 label = 'CRS3 Code',
                 index = None,
                 placeholder = "Select",
                 options = CRS3_MERGED,
+                )
+            """
+
+            crs3_option = st.multiselect(
+                'CRS 3',
+                CRS3_MERGED,
+                placeholder="Select"
                 )
             
             # CRS5 CODE SELECT
@@ -115,17 +123,20 @@ def show_page():
         # Extract Orgas from multiselect
         selected_orgas = [str(o).split(" - ")[1] for o in orga_option]
         selected_orgas_code = [CONSTANTS.ORGANIZATIONS[o][2] for o in selected_orgas]
-        # CRS table
+
         if crs3_option != None:
             if country_option != []:
-                crs3_str = str(CRS3_MERGED[crs3_option])
+                #crs3_str = str(CRS3_MERGED[crs3_option])
+                crs3_list = [i[-3:] for i in crs3_option]
+                st.write(crs3_list)
+                # get country codes from multiselect
                 country_names = [str(c) for c in country_option]
-
                 country_codes = [ 
                     country_df[country_df['Country'] == c]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
                     for c in country_names
                     ]
-                result_df = crs_overlap.calc_crs3(crs3_str, country_codes, selected_orgas_code)
+                
+                result_df = crs_overlap.calc_crs3(crs3_list, country_codes, selected_orgas_code)
                 
                 if crs5_option != None:
                     crs5_str = str(crs5_option[-5:])
