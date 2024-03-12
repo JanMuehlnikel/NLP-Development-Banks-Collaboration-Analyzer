@@ -7,7 +7,7 @@ Need to have not one big file but multiple smaller ones to stay under git 100gb 
 import pandas as pd
 
 # Load merged orgas df
-df = pd.read_csv("..\..\..\src\merged_orgas.csv")
+df = pd.read_csv("..\..\src\merged_orgas.csv")
 
 def create_files():
 

@@ -22,7 +22,6 @@ KEYS = SourceFileLoader("KEYS", "../../config/KEYS.py").load_module()
 
 
 # Iterate through all organizations
-
 for key, org_values in CONSTANTS.ORGANIZATIONS.items():
     print(f"⯈ Start fetching {key}.")
 
