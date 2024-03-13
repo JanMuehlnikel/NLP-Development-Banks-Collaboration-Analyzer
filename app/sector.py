@@ -176,20 +176,31 @@ def show_page():
             
 
         # SHOW RESULTS
-        # Extract Orgas from multiselect
-        selected_orgas = [str(o).replace(")", "").lower().split("(")[1] for o in orga_option]
-
-        # CRS table
         if sdg_option != None:
-            if country_option != []:
-                sdg_int = int(sdg_option.split(" ")[0].replace(".", ""))
-                country_names = [str(c) for c in country_option]
+            sdg_int = int(sdg_option.split(" ")[0].replace(".", ""))
+            # Extract Orgas from multiselect
+            if "All" in orga_option:
+                SHOW_ALL_ORGAS = True
+                selected_orgas = []
+            else:
+                SHOW_ALL_ORGAS = False
+                selected_orgas = [str(o).replace(")", "").lower().split("(")[1] for o in orga_option]
 
+            if country_option != []:
+                # all selection
+                if "All" in country_option:
+                    SHOW_ALL_COUNTRIES = True
+                    country_option.remove("All")
+                else:
+                    SHOW_ALL_COUNTRIES = False
+
+                country_names = [str(c) for c in country_option]
                 country_codes = [ 
                     country_df[country_df['Country'] == c]['Alpha-2 code'].values[0].replace('"', "").strip(" ")
                     for c in country_names
                     ]
-                result_df = sdg_overlap.calc_crs3(sdg_int, country_codes, selected_orgas)
+
+                result_df = sdg_overlap.calc_crs3(sdg_int, country_codes, selected_orgas, SHOW_ALL_COUNTRIES, SHOW_ALL_ORGAS)
                 
                 # TABLE FOR SDG OVERLAP
                 sdg_table.show_table(result_df)
