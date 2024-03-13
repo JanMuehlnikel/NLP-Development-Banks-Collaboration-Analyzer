@@ -9,6 +9,7 @@ import streamlit as st
 import pandas as pd
 import utils.crs_table as crs_table
 import utils.sdg_table as sdg_table
+import utils.filter_modules as filter_modules
 
 from importlib.machinery import SourceFileLoader
 crs_overlap = SourceFileLoader("crs_overlap", "data/models/crs_overlap.py").load_module()
@@ -59,6 +60,15 @@ CRS5_MERGED = getCRS5()
 SDG_NAMES = getSDG()
 country_df, COUNTRY_CODES, COUNTRY_NAMES = getCountry()
 
+# SPECIAL SELECTIONS
+## COUNTRY
+SPECIAL_COUNTRY_SLECTIONS = ["All"]
+SHOW_ALL_COUNTRIES = False # If all countries should be showed in matching
+
+## ORGANIZATION
+SPECIAL_ORGA_SLECTIONS = ["All"]
+SHOW_ALL_ORGAS = False
+
 ########
 # PAGE #
 ########
@@ -100,28 +110,31 @@ def show_page():
 
         with col2:
             # COUNTRY SELECTION
-            country_option = st.multiselect(
-                'Country / Countries',
-                COUNTRY_NAMES,
-                placeholder="Select"
-                )
+            country_option = filter_modules.country_option(SPECIAL_COUNTRY_SLECTIONS, COUNTRY_NAMES)
             
             # ORGA SELECTION
-            orga_list = [f"{v[0]} ({k})" for k, v in CONSTANTS.ORGA_SEARCH.items()]
-            orga_option = st.multiselect(
-                'Development Bank / Organization',
-                orga_list,
-                placeholder="Select"
-                )
+            orga_option = filter_modules.orga_option(SPECIAL_ORGA_SLECTIONS, CONSTANTS.ORGA_SEARCH)
         
         ################
         # SHOW RESULTS #
         ################
         # Extract Orgas from multiselect
-        selected_orgas = [str(o).replace(")", "").lower().split("(")[1] for o in orga_option]
+        if "All" in orga_option:
+            SHOW_ALL_ORGAS = True
+            selected_orgas = []
+        else:
+            SHOW_ALL_ORGAS = False
+            selected_orgas = [str(o).replace(")", "").lower().split("(")[1] for o in orga_option]
 
-        if crs3_option != None:
-            if country_option != []:
+        if country_option != []:
+            # all selection
+            if "All" in country_option:
+                SHOW_ALL_COUNTRIES = True
+                country_option.remove("All")
+            else:
+                SHOW_ALL_COUNTRIES = False
+
+            if crs3_option != []:
                 # CRS 3 codes from option
                 crs3_list = [i[-3:] for i in crs3_option]
 
@@ -132,12 +145,12 @@ def show_page():
                     for c in country_names
                     ]
                 
-                result_df = crs_overlap.calc_crs3(crs3_list, country_codes, selected_orgas)
+                result_df = crs_overlap.calc_crs3(crs3_list, country_codes, selected_orgas, SHOW_ALL_COUNTRIES, SHOW_ALL_ORGAS)
                 
                 if crs5_option != []:
                     # CRS 5 codes from option
                     crs5_list = [i[-5:] for i in crs5_option]
-                    result_df = crs_overlap.calc_crs5(crs5_list, country_codes, selected_orgas)
+                    result_df = crs_overlap.calc_crs5(crs5_list, country_codes, selected_orgas, SHOW_ALL_COUNTRIES, SHOW_ALL_ORGAS)
                 
                 # TABLE FOR CRS OVERLAP
                 crs_table.show_table(result_df)
@@ -156,19 +169,10 @@ def show_page():
 
         with col2:
             # COUNTRY SELECTION
-            country_option = st.multiselect(
-                'Country / Countries',
-                COUNTRY_NAMES,
-                placeholder="Select"
-                )
+            country_option = filter_modules.country_option(SPECIAL_COUNTRY_SLECTIONS, COUNTRY_NAMES)
             
             # ORGA SELECTION
-            orga_list = [f"{v[0]} ({k})" for k, v in CONSTANTS.ORGA_SEARCH.items()]
-            orga_option = st.multiselect(
-                'Development Bank / Organization',
-                orga_list,
-                placeholder="Select"
-                )
+            orga_option = filter_modules.orga_option(SPECIAL_ORGA_SLECTIONS, CONSTANTS.ORGA_SEARCH)
             
 
         # SHOW RESULTS
