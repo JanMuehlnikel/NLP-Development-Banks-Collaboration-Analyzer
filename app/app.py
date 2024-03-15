@@ -7,7 +7,7 @@ st.set_page_config(
 )
 
 from utils.navbar import show_navbar
-import home, sector
+import home, sector, similarity
 
 # NAVBAR
 navbar = show_navbar()
@@ -17,4 +17,6 @@ if navbar == "Home":
     st.session_state.page = home.show_page()
 elif navbar == "Sector Matches":
     st.session_state.page = sector.show_page()
+elif navbar == "Similarity Matches":
+    st.session_state.page = similarity.show_page()
 
