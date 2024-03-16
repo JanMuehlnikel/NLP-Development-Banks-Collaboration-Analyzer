@@ -19,6 +19,10 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
 
     #Read in data into df from json
     df = pd.read_json(response_file)
+
+    # drop dublicates
+    df = df.drop_duplicates(subset=['iati_identifier'], keep='first')
+
     print(f"⮩ {abbreviation} with entries: {len(df)}")
 
     # create new empty df to fill with transformed data
@@ -254,6 +258,9 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
         trans_df["status"] = df.activity_status_code
         trans_df['status'] = trans_df['status'].replace(activity_status)
 
+    def ignore_some_projects(trans_df):
+        trans_df = trans_df[~((trans_df['status'] == 'Closed') | (trans_df['status'] == 'Cancelled') | (trans_df['status'] == 'Suspended'))]
+
     def date(trans_df):
         # One Hot
         # 1 -> Yes
@@ -406,6 +413,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
     description(trans_df)
     main_description(trans_df)
     status(trans_df)
+    ignore_some_projects(trans_df)
     date(trans_df)
     last_update(trans_df)
     sector_codes(trans_df)
