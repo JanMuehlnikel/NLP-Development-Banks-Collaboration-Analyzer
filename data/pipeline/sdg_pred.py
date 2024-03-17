@@ -26,7 +26,7 @@ def pred_sdg(df):
 
     for index, row in tqdm(df.iterrows(), total=len_df, desc="Processing"):
         if index % 500 == 0:
-            print(f"Debugger: {index} / {len_df}")
+            print(f" Debugger: {index} / {len_df}")
         descr_row = row['description_main']
         try:
             # nan in pandas is type float
@@ -48,7 +48,7 @@ def pred_sdg(df):
                     df["sgd_pred_code"][index] = pred_int
                     df["sgd_pred_str"][index] = sdg_translation
         except Exception as e:
-            print(f"{e}: {descr_row}")
+            print(f"Error {e}: {descr_row}")
 
 
     print("Debugger: Pred finished")

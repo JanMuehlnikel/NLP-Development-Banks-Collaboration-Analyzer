@@ -20,8 +20,8 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
     #Read in data into df from json
     df = pd.read_json(response_file)
 
-    # drop dublicates
-    df = df.drop_duplicates(subset=['iati_identifier'], keep='first')
+    # drop dublicates and reset index
+    df = df.drop_duplicates(subset=['iati_identifier'], keep='first').reset_index(drop=True)
 
     print(f"⮩ {abbreviation} with entries: {len(df)}")
 
@@ -118,8 +118,8 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
                         pass
                 else:
                     trans_df["title_en"][index] = row['title_narrative'][0]
-            except:
-                print(f"Error: Index: {index}, Row: {lang_list}, {title_row}")
+            except Exception as e:
+                print(f"Error: {e} \nIndex: {index}, Row: {lang_list}, {title_row}")
 
     def other_title(trans_df):
         trans_df["title_other"] = "NaN"
@@ -175,7 +175,10 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
                 trans_df["country"][index] = country_str
 
     def region(trans_df):
-        trans_df['region'] = df['recipient_region_code']
+        try:
+            trans_df['region'] = df['recipient_region_code']
+        except:
+            trans_df['region'] = "NaN"
 
     def location(trans_df):
         try: 
@@ -237,7 +240,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
                     trans_df["description_en"][index] = descr_str
 
             except Exception as e:
-                #print(e)
+                print(e)
                 #print(f"Error: Index: {index} \n Row: {row}")
                 pass
 
@@ -260,6 +263,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
 
     def ignore_some_projects(trans_df):
         trans_df = trans_df[~((trans_df['status'] == 'Closed') | (trans_df['status'] == 'Cancelled') | (trans_df['status'] == 'Suspended'))]
+        return trans_df
 
     def date(trans_df):
         # One Hot
@@ -413,7 +417,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
     description(trans_df)
     main_description(trans_df)
     status(trans_df)
-    ignore_some_projects(trans_df)
+    trans_df = ignore_some_projects(trans_df)
     date(trans_df)
     last_update(trans_df)
     sector_codes(trans_df)
