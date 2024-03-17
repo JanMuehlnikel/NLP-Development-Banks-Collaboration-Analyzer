@@ -24,7 +24,7 @@ def create_files():
     status_df.to_csv("../../app/src/projects/project_status.csv", index=False)
 
     # Project region DF
-    region_df = df[["iati_id", "region", "location"]]
+    region_df = df[["iati_id", "country", "region", "location"]]
     region_df.to_csv("../../app/src/projects/project_region.csv", index=False)
 
     # Project Sector DF
