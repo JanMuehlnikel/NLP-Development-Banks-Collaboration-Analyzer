@@ -21,18 +21,27 @@ def load_sim_matrix():
 
 @st.cache_data
 def load_projects():
-    project_df = pd.read_csv("app/src/similarity_projects_table.csv")
+    orgas_df = pd.read_csv("app/src/projects/project_orgas.csv")
+    region_df = pd.read_csv("app/src/projects/project_region.csv")
+    sector_df = pd.read_csv("app/src/projects/project_sector.csv")
+    status_df = pd.read_csv("app/src/projects/project_status.csv")
+    texts_df = pd.read_csv("app/src/projects/project_texts.csv")
 
-    return project_df
+    projects_df = pd.merge(orgas_df, region_df, on='iati_id', how='inner')
+    projects_df = pd.merge(projects_df, sector_df, on='iati_id', how='inner')
+    projects_df = pd.merge(projects_df, status_df, on='iati_id', how='inner')
+    projects_df = pd.merge(projects_df, texts_df, on='iati_id', how='inner')
+
+    return projects_df
 
 # LOAD DATA
 sim_matrix = load_sim_matrix()
-project_df = load_projects()
+projects_df = load_projects()
 
 def show_page():
     st.write("Similarities")
 
-    df_subset = project_df.head(10)
+    df_subset = projects_df.head(10)
     selected_index = st.selectbox('Select an entry', df_subset.index, format_func=lambda x: df_subset.loc[x, 'iati_id'])
 
     st.write(selected_index)
@@ -51,7 +60,12 @@ def show_page():
 
     # create result data frame
     index_list = [tup[0] for tup in top_20_sims]
-    result_df = project_df.iloc[index_list]
+    print(index_list)
+    result_df = projects_df.iloc[index_list]
+    print(len(result_df))
+
+    print(len(result_df))
+    # add other colums to result df
 
     similarity_list = [tup[1] for tup in top_20_sims]
     result_df["similarity"] = similarity_list
