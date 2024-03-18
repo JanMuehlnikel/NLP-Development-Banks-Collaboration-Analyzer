@@ -10,7 +10,7 @@ import pandas as pd
 import utils.crs_table as crs_table
 import utils.sdg_table as sdg_table
 import utils.filter_modules as filter_modules
-
+"""
 from importlib.machinery import SourceFileLoader
 crs_overlap = SourceFileLoader("crs_overlap", "data/models/crs_overlap.py").load_module()
 sdg_overlap = SourceFileLoader("sdg_overlap", "data/models/sdg_overlap.py").load_module()
@@ -68,7 +68,7 @@ SHOW_ALL_COUNTRIES = False # If all countries should be showed in matching
 ## ORGANIZATION
 SPECIAL_ORGA_SLECTIONS = ["All"]
 SHOW_ALL_ORGAS = False
-
+"""
 ########
 # PAGE #
 ########

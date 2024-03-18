@@ -16,7 +16,8 @@ navbar = show_navbar()
 if navbar == "Home":
     st.session_state.page = home.show_page()
 elif navbar == "Sector Matches":
-    st.session_state.page = sector.show_page()
+    pass
+    #st.session_state.page = sector.show_page()
 elif navbar == "Similarity Matches":
     st.session_state.page = similarity.show_page()
 
