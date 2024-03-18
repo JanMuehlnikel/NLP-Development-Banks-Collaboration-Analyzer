@@ -9,6 +9,12 @@ import streamlit as st
 import pandas as pd
 from scipy.sparse import load_npz
 import utils.similarity_table as similarity_table
+import psutil
+import os
+
+def get_process_memory():
+    process = psutil.Process(os.getpid())
+    return process.memory_info().rss / (1024 * 1024) 
 
 # Catch DATA
 # Load Similarity matrix
@@ -17,9 +23,7 @@ def load_sim_matrix():
     loaded_matrix = load_npz("app/src/similarities.npz")
     dense_matrix = loaded_matrix.toarray()
 
-
     return dense_matrix
-
 
 @st.cache_data
 def load_projects():
@@ -41,6 +45,7 @@ sim_matrix = load_sim_matrix()
 projects_df = load_projects()
 
 def show_page():
+    st.write(f"Current RAM usage of this app: {get_process_memory():.2f} MB")
     st.write("Similarities")
 
     df_subset = projects_df.head(10)
