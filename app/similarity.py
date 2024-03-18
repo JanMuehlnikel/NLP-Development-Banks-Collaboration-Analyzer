@@ -12,7 +12,7 @@ import utils.similarity_table as similarity_table
 
 # Catch DATA
 # Load Similarity matrix
-@st.cache
+@st.cache_data
 def load_sim_matrix():
     loaded_matrix = load_npz("app/src/similarities.npz")
     dense_matrix = loaded_matrix.toarray()
