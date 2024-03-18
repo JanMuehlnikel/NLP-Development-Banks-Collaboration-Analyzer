@@ -74,6 +74,7 @@ SHOW_ALL_ORGAS = False
 ########
 def show_page():
     
+    """
     def show_crs():
         # SESSION STATES
         st.session_state.crs5_option_disabled = True
@@ -219,4 +220,6 @@ def show_page():
         show_crs()
     elif match_option == "SDG":
         show_sdg()
+    
+    """
 
