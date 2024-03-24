@@ -1,7 +1,0 @@
-[global]
-
-[server]
-headless = true
-
-[client]
-initialSidebarState = "expanded"
