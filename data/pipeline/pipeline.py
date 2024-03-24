@@ -14,6 +14,12 @@ from fetch_api import fetch_data
 from transform import transform
 from merge_csv import merge
 from app_files import create_files
+import pandas as pd
+import warnings
+
+# Ignore SettingWithCopyWarning
+warnings.filterwarnings('ignore', module='pandas')
+
 
 # Your current dirctory has to be /data/pipeline/ to not get FileNotFoundError
 from importlib.machinery import SourceFileLoader

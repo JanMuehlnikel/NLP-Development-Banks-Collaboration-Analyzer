@@ -7,6 +7,10 @@ The transformation process can be viewed in more detail as jupyter notebook in n
 import pandas as pd
 import numpy as np
 from sdg_pred import pred_sdg
+import warnings
+
+# Ignore SettingWithCopyWarning
+warnings.filterwarnings(action='ignore', module='pandas')
 
 def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
 
@@ -173,6 +177,23 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
                     country_str += f"{i}; "
                 
                 trans_df["country"][index] = country_str
+        
+        country_codes_df = pd.read_csv("../../src/codelists/country_codes_ISO3166-1alpha-2.csv")
+        country_codes_df = country_codes_df[["Country", "Alpha-2 code"]]
+        country_codes_df['Alpha-2 code'] = country_codes_df['Alpha-2 code'].str.replace('"', '', regex=False)
+        country_codes_df['Alpha-2 code'] = country_codes_df['Alpha-2 code'].str.replace(' ', '', regex=False)
+        trans_df['country_name'] = "NaN"
+
+        country_name_map = country_codes_df.set_index('Alpha-2 code')['Country'].to_dict()
+        def map_countries(country_list):
+            if not isinstance(country_list, list):
+                return "NaN"  
+            return ', '.join([country_name_map.get(code, "NaN") for code in country_list])
+
+        # Apply the mapping function to each list in the 'country' column
+        trans_df['country_name'] = trans_df['country_code_list'].apply(map_countries)
+
+        trans_df[["country_name", "country", "country_code_list"]].head(100)
 
     def region(trans_df):
         try:
@@ -402,6 +423,19 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
             except:
                 trans_df["title_and_description"][index] = ""
 
+    def remove_duplicates(trans_df):
+        # Drop all duplicates based on the columns defined:
+        num_before = len(trans_df)
+        columns_to_consider = ['title_main', 'description_main', "country"]
+        trans_df = trans_df.drop_duplicates(subset=columns_to_consider, keep='first')
+
+        #In bmz data there are some standart columns appearing wich will be dropped
+        trans_df = trans_df[trans_df["title_main"] != "This information is not available for this project."]
+
+        num_after = len(trans_df)
+        print(f"Num of rmv duplicates: {num_before - num_after}")
+
+        return trans_df
 
     iati_id(trans_df)
     iati_orga_ids(trans_df)
@@ -423,6 +457,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
     sector_codes(trans_df)
     documents(trans_df)
     title_and_decription(trans_df)
+    trans_df = remove_duplicates(trans_df)
 
     # comment out if a prediction of sdg is not wished
     pred_sdg(trans_df)
