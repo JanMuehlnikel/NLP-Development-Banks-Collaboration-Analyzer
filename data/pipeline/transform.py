@@ -163,7 +163,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
         trans_df['organization'] = df['reporting_org_narrative'].apply(lambda x: x[0])
 
     def country(trans_df):
-        trans_df["country_code"] = df["recipient_country_code"]
+        trans_df["country_code_list"] = df["recipient_country_code"]
         trans_df["country"] = "NaN"
 
         for index, row in df.iterrows():
@@ -185,6 +185,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
         trans_df['country_name'] = "NaN"
 
         country_name_map = country_codes_df.set_index('Alpha-2 code')['Country'].to_dict()
+
         def map_countries(country_list):
             if not isinstance(country_list, list):
                 return "NaN"  
@@ -195,6 +196,10 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
 
         trans_df[["country_name", "country", "country_code_list"]].head(100)
 
+        trans_df["country_flag"] = trans_df['country'].apply(lambda x: f"https://flagicons.lipis.dev/flags/4x3/{x[:2].lower()}.svg" if pd.notna(x) else "https://flagicons.lipis.dev/flags/4x3/xx.svg")
+
+        return trans_df
+    
     def region(trans_df):
         try:
             trans_df['region'] = df['recipient_region_code']
@@ -445,7 +450,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
     other_title(trans_df)
     main_title(trans_df)
     organization(trans_df)
-    country(trans_df)
+    trans_df = country(trans_df)
     region(trans_df)
     location(trans_df)
     description(trans_df)

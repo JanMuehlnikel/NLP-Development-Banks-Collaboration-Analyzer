@@ -25,8 +25,6 @@ warnings.filterwarnings('ignore', module='pandas')
 from importlib.machinery import SourceFileLoader
 CONSTANTS = SourceFileLoader("CONSTANTS", "../../config/CONSTANTS.py").load_module()
 KEYS = SourceFileLoader("KEYS", "../../config/KEYS.py").load_module()
-
-
 # Iterate through all organizations
 for key, org_values in CONSTANTS.ORGANIZATIONS.items():
     print(f"⯈ Start fetching {key}.")
