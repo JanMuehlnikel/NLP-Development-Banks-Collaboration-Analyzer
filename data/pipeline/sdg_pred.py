@@ -13,7 +13,7 @@ from tqdm import tqdm
 def pred_sdg(df):
     print("Debugger: Pred started")
     # Load model: https://huggingface.co/jonas/sdg_classifier_osdg
-    pipe = pipeline("text-classification", model="jonas/roberta-base-finetuned-sdg")
+    pipe = pipeline("text-classification", model="jonas/bert-base-uncased-finetuned-sdg")
 
     # Load sdg codelist df
     sdg_df = pd.read_csv("../../src/codelists/sdg_goals.csv")
