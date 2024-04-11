@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 def pred_sdg(df):
     print("Debugger: Pred started")
-    # Load model: https://huggingface.co/jonas/sdg_classifier_osdg
+    # Load model: https://huggingface.co/jonas/bert-base-uncased-finetuned-sdg
     pipe = pipeline("text-classification", model="jonas/bert-base-uncased-finetuned-sdg")
 
     # Load sdg codelist df
