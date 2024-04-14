@@ -42,6 +42,7 @@ IATI_ATTRIBUTES = [
     "title_narrative",
     "title_narrative_xml_lang",
     "reporting_org_ref",
+    "participating_org_ref",
     "description_narrative_xml_lang",
     "description_narrative",
     "recipient_country_code",

@@ -445,7 +445,7 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
     iati_id(trans_df)
     iati_orga_ids(trans_df)
     #project_number(trans_df)
-    #secondary_orga(trans_df)
+    secondary_orga(trans_df)
     en_title(trans_df)
     other_title(trans_df)
     main_title(trans_df)

@@ -20,11 +20,11 @@ def create_files():
     texts_df.to_csv("../../synergy-app/src/projects/project_texts.csv", index=False)
 
     # Project Status DF
-    status_df = df[["iati_id", "status", "planned_start", "actual_start","planned_end", "actual_end"]]
+    status_df = df[["iati_id", "status"]]
     status_df.to_csv("../../synergy-app/src/projects/project_status.csv", index=False)
 
     # Project region DF
-    region_df = df[["iati_id", "country", "country_code_list", "country_name", "country_flag", "region", "location"]]
+    region_df = df[["iati_id", "country", "country_code_list", "country_name", "country_flag"]]
     region_df.to_csv("../../synergy-app/src/projects/project_region.csv", index=False)
 
     # Project Sector DF
@@ -32,3 +32,4 @@ def create_files():
     sector_df['sgd_pred_code'] = sector_df['sgd_pred_code'].astype('Int64')
     sector_df.to_csv("../../synergy-app/src/projects/project_sector.csv", index=False)
 
+create_files()
