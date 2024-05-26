@@ -7,7 +7,6 @@ The project aims to explore the collaborative potential among development banks 
 3. ```git clone https://huggingface.co/spaces/GIZ/eb-synergy-app```
 4. Install ```NLP-Development-Banks-Collaboration-Analyzer/requirements.txt``` in virtual enviroment
 
-
 ## **Run Pipeline**
 1. Navigate to **```/data/pipeline```**
 2. Run **```python pipeline.py```**
@@ -21,5 +20,14 @@ The project aims to explore the collaborative potential among development banks 
 4. Navigate to **```/data/models```**
 5. Run **```extended_similarities.ipynb```** Notebook
 6. Extended Similarity Results stored in **```synergy-app/src/```**
+
+## **Launch App**
+
+**Launch Local (Most likely not possible throgh extremely high RAM usage!!)**
+1. ```cd /synergy-app```
+2. ```streamlit run app.py```
+
+**Visit HuggingFace Space**
+https://huggingface.co/spaces/GIZ/eb-synergy-app
    
 ...
