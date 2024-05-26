@@ -28,6 +28,7 @@ The project aims to explore the collaborative potential among development banks 
 2. ```streamlit run app.py```
 
 **Visit HuggingFace Space**
+
 https://huggingface.co/spaces/GIZ/eb-synergy-app
    
 ...
