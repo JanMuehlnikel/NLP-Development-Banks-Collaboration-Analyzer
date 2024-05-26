@@ -1,4 +1,5 @@
 # NLP Development Banks Collaboration Analyzer 🌏
+The project aims to explore the collaborative potential among development banks using Natural Language Processing (NLP) techniques. By analyzing textual data such as project declerations from various development banks, the goal is to uncover insights into potential areas of collaboration and synergy.
 
 ## **Installation**
 
