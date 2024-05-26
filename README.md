@@ -23,7 +23,7 @@ The project aims to explore the collaborative potential among development banks 
 
 ## **Launch App**
 
-**Launch Local (Most likely not possible throgh extremely high RAM usage!!)**
+**Launch Local (Most likely not possible throgh extremely high RAM usage!)**
 1. ```cd /synergy-app```
 2. ```streamlit run app.py```
 
