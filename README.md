@@ -2,7 +2,7 @@
 The project aims to explore the collaborative potential among development banks using Natural Language Processing (NLP) techniques. By analyzing textual data such as project declerations from various development banks, the goal is to uncover insights into potential areas of collaboration and synergy.
 
 ## **Features**
-- Data pipeline to fetch and preprocess development cooperation projects from IATI Datastore
+- Data pipeline to fetch and preprocess development cooperation projects from IATI Datastore (https://iatistandard.org/en/)
 - Calculation of text similarities between fetched projects to find similar projects
 - Calculation of extended similarity score which includes text similarity, CRS3 Codes, CRS5 Codes and SDGs
 - Visualization of results in a web application through Streamlit
