@@ -2,7 +2,7 @@
 
 
 **Run Pipeline**
-1. Navigate to /data/pipeline
+1. Navigate to **/data/pipeline**
 2. Run python pipeline.py
 3. Wait till pipeline finishes
 4. See results in /src/merged_orgas.csv
