@@ -13,6 +13,7 @@ The project aims to explore the collaborative potential among development banks 
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Badge">
   <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy Badge">
   <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas Badge">
+  <img src="https://img.shields.io/badge/SciPy-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white" alt="SciPy Badge">
   <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit Badge">
   <img src="https://img.shields.io/badge/Hugging%20Face-339933?style=for-the-badge&logo=huggingface&logoColor=white" alt="Hugging Face Badge">
   <img src="https://img.shields.io/badge/Transformers-FFD700?style=for-the-badge&logo=transformers&logoColor=white" alt="Transformers Badge">
