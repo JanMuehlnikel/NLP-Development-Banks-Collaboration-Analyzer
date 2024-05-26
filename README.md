@@ -50,7 +50,7 @@ The project aims to explore the collaborative potential among development banks 
 
 **Visit HuggingFace Space**
 
-Through high RAM usage the Streamlit App is hosted in a Hugging Face Space.
+Through high RAM usage the Streamlit App is hosted in a Hugging Face Space:
 
 https://huggingface.co/spaces/GIZ/eb-synergy-app
 
