@@ -42,7 +42,7 @@ The project aims to explore the collaborative potential among development banks 
 5. Run **```extended_similarities.ipynb```** Notebook
 6. Extended Similarity Results stored in **```synergy-app/src/```**
 
-## **Launch App**
+## **App**
 
 **Launch Local (Most likely not possible throgh extremely high RAM usage!)**
 1. ```cd /synergy-app```
@@ -50,6 +50,16 @@ The project aims to explore the collaborative potential among development banks 
 
 **Visit HuggingFace Space**
 
+Through high RAM usage the Streamlit App is hosted in a Hugging Face Space.
+
 https://huggingface.co/spaces/GIZ/eb-synergy-app
-   
-...
+
+## **Project Structure**
+
+├── app.py                # Main file to run the Streamlit app
+├── notebooks/            # Jupyter notebooks for data exploration and model training
+├── models/               # Directory to save trained models
+├── data/                 # Directory to store data files
+├── requirements.txt      # Python dependencies
+├── README.md             # Project documentation
+└── ...                   # Other files and directories
