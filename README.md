@@ -4,7 +4,7 @@ The project aims to explore the collaborative potential among development banks 
 ## **Features**
 - Data pipeline to fetch and preprocess development cooperation projects from IATI Datastore (https://iatistandard.org/en/)
 - Calculation of text similarities between fetched projects to find similar projects
-- Calculation of extended similarity score which includes text similarity, CRS3 Codes, CRS5 Codes and SDGs
+- Calculation of extended similarity score which includes cosine text similarity, CRS3 Codes, CRS5 Codes and SDGs
 - Visualization of results in a web application through Streamlit
 
 ## **Installation**
