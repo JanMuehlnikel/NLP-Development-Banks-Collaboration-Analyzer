@@ -10,19 +10,20 @@ The project aims to explore the collaborative potential among development banks 
 ## Tech Stack
 
 - **Python**: The core programming language used for development.
-- <img src="[https://via.placeholder.com/50](https://upload.wikimedia.org/wikipedia/commons/c/cf/Python_logo_51.svg)" alt="Python Logo" width="50" height="50">  <!-- Replace with Python logo URL -->
+  <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png" alt="Python Logo" width="50" height="50">
 
 - **Streamlit**: A framework for creating interactive web applications directly from Python scripts.
-- ![Streamlit Logo](https://via.placeholder.com/50)  <!-- Replace with Streamlit logo URL -->
+  <img src="https://streamlit.io/images/brand/streamlit-mark-color.png" alt="Streamlit Logo" width="50" height="50">
 
 - **Hugging Face**: A platform providing a wide range of pre-trained NLP models and tools.
-- ![Hugging Face Logo](https://via.placeholder.com/50)  <!-- Replace with Hugging Face logo URL -->
+  <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face Logo" width="50" height="50">
 
 - **Transformers**: A library by Hugging Face for state-of-the-art NLP models.
-- ![Transformers Logo](https://via.placeholder.com/50)  <!-- Replace with Transformers logo URL -->
+  <img src="https://github.com/huggingface/transformers/raw/main/docs/source/imgs/transformers_logo_name.png" alt="Transformers Logo" width="50" height="50">
 
 - **Jupyter**: An interactive computing environment that allows you to create and share documents that contain live code, equations, visualizations, and narrative text.
-- ![Jupyter Logo](https://via.placeholder.com/50)  <!-- Replace with Jupyter logo URL -->
+  <img src="https://jupyter.org/assets/main-logo.svg" alt="Jupyter Logo" width="50" height="50">
+
 
 
 ## **Installation**
