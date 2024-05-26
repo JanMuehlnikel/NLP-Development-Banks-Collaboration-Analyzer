@@ -9,21 +9,13 @@ The project aims to explore the collaborative potential among development banks 
 
 ## Tech Stack
 
-- **Python**: The core programming language used for development.
-  <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png" alt="Python Logo" width="50" height="50">
-
-- **Streamlit**: A framework for creating interactive web applications directly from Python scripts.
-  <img src="https://streamlit.io/images/brand/streamlit-mark-color.png" alt="Streamlit Logo" width="50" height="50">
-
-- **Hugging Face**: A platform providing a wide range of pre-trained NLP models and tools.
-  <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face Logo" width="50" height="50">
-
-- **Transformers**: A library by Hugging Face for state-of-the-art NLP models.
-  <img src="https://github.com/huggingface/transformers/raw/main/docs/source/imgs/transformers_logo_name.png" alt="Transformers Logo" width="50" height="50">
-
-- **Jupyter**: An interactive computing environment that allows you to create and share documents that contain live code, equations, visualizations, and narrative text.
-  <img src="https://jupyter.org/assets/main-logo.svg" alt="Jupyter Logo" width="50" height="50">
-
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Badge">
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit Badge">
+  <img src="https://img.shields.io/badge/Hugging%20Face-339933?style=for-the-badge&logo=huggingface&logoColor=white" alt="Hugging Face Badge">
+  <img src="https://img.shields.io/badge/Transformers-FFD700?style=for-the-badge&logo=transformers&logoColor=white" alt="Transformers Badge">
+  <img src="https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter Badge">
+</p>
 
 
 ## **Installation**
