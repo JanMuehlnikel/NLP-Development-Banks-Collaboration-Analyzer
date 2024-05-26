@@ -5,7 +5,9 @@ The project aims to explore the collaborative potential among development banks 
 1. ```git clone https://github.com/JanMuehlnikel/NLP-Development-Banks-Collaboration-Analyzer```
 2. ```cd synergy-app```
 3. ```git clone https://huggingface.co/spaces/GIZ/eb-synergy-app```
-4. 
+4. Install ```NLP-Development-Banks-Collaboration-Analyzer/requirements.txt in virtual enviroment
+
+
 ## **Run Pipeline**
 1. Navigate to **```/data/pipeline```**
 2. Run **```python pipeline.py```**
