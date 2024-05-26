@@ -10,7 +10,7 @@ The project aims to explore the collaborative potential among development banks 
 ## Tech Stack
 
 - **Python**: The core programming language used for development.
-- ![Python Logo](https://upload.wikimedia.org/wikipedia/commons/c/cf/Python_logo_51.svg) 
+- <img src="[https://via.placeholder.com/50](https://upload.wikimedia.org/wikipedia/commons/c/cf/Python_logo_51.svg)" alt="Python Logo" width="50" height="50">  <!-- Replace with Python logo URL -->
 
 - **Streamlit**: A framework for creating interactive web applications directly from Python scripts.
 - ![Streamlit Logo](https://via.placeholder.com/50)  <!-- Replace with Streamlit logo URL -->
