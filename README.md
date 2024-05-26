@@ -55,7 +55,7 @@ Through high RAM usage the Streamlit App is hosted in a Hugging Face Space.
 https://huggingface.co/spaces/GIZ/eb-synergy-app
 
 ## **Project Structure**
-
+```
 ├── app.py                # Main file to run the Streamlit app
 ├── notebooks/            # Jupyter notebooks for data exploration and model training
 ├── models/               # Directory to save trained models
@@ -63,3 +63,4 @@ https://huggingface.co/spaces/GIZ/eb-synergy-app
 ├── requirements.txt      # Python dependencies
 ├── README.md             # Project documentation
 └── ...                   # Other files and directories
+```
