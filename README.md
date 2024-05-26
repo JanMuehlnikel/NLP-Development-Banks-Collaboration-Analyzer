@@ -56,11 +56,11 @@ https://huggingface.co/spaces/GIZ/eb-synergy-app
 
 ## **Project Structure**
 ```
-├── app.py                # Main file to run the Streamlit app
-├── notebooks/            # Jupyter notebooks for data exploration and model training
-├── models/               # Directory to save trained models
-├── data/                 # Directory to store data files
-├── requirements.txt      # Python dependencies
-├── README.md             # Project documentation
-└── ...                   # Other files and directories
+├── config/               # configuration files, constants and keys
+├── data/                 # pipeline, models and validation
+├── src/                  # sources
+├── synergy-app/          # Streamlit App to display results (different repo)
+├── .gitignore            # files ignored (especially large memmory files)
+├── README.md             # project information
+└── requirments.txt       # dependecies and libs that need to be installed
 ```
