@@ -59,7 +59,7 @@ https://huggingface.co/spaces/GIZ/eb-synergy-app
 ├── config/               # configuration files, constants and keys
 ├── data/                 # pipeline, models and validation
 ├── src/                  # sources
-├── synergy-app/          # Streamlit App to display results (different repo)
+├── synergy-app/          # Streamlit App to display results (different repo (https://huggingface.co/spaces/GIZ/eb-synergy-app))
 ├── .gitignore            # files ignored (especially large memmory files)
 ├── README.md             # project information
 └── requirments.txt       # dependecies and libs that need to be installed
