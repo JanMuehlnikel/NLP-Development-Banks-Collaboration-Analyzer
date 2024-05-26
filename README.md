@@ -7,6 +7,24 @@ The project aims to explore the collaborative potential among development banks 
 - Calculation of extended similarity score which includes cosine text similarity, CRS3 Codes, CRS5 Codes and SDGs
 - Visualization of results in a web application through Streamlit
 
+## Tech Stack
+
+- **Python**: The core programming language used for development.
+- ![Python Logo]([https://via.placeholder.com/50](https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg)) 
+
+- **Streamlit**: A framework for creating interactive web applications directly from Python scripts.
+- ![Streamlit Logo](https://via.placeholder.com/50)  <!-- Replace with Streamlit logo URL -->
+
+- **Hugging Face**: A platform providing a wide range of pre-trained NLP models and tools.
+- ![Hugging Face Logo](https://via.placeholder.com/50)  <!-- Replace with Hugging Face logo URL -->
+
+- **Transformers**: A library by Hugging Face for state-of-the-art NLP models.
+- ![Transformers Logo](https://via.placeholder.com/50)  <!-- Replace with Transformers logo URL -->
+
+- **Jupyter**: An interactive computing environment that allows you to create and share documents that contain live code, equations, visualizations, and narrative text.
+- ![Jupyter Logo](https://via.placeholder.com/50)  <!-- Replace with Jupyter logo URL -->
+
+
 ## **Installation**
 1. ```git clone https://github.com/JanMuehlnikel/NLP-Development-Banks-Collaboration-Analyzer```
 2. ```cd synergy-app```
