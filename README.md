@@ -2,7 +2,10 @@
 The project aims to explore the collaborative potential among development banks using Natural Language Processing (NLP) techniques. By analyzing textual data such as project declerations from various development banks, the goal is to uncover insights into potential areas of collaboration and synergy.
 
 ## **Installation**
-
+1. ```git clone https://github.com/JanMuehlnikel/NLP-Development-Banks-Collaboration-Analyzer```
+2. ```cd synergy-app```
+3. ```git clone https://huggingface.co/spaces/GIZ/eb-synergy-app```
+4. 
 ## **Run Pipeline**
 1. Navigate to **```/data/pipeline```**
 2. Run **```python pipeline.py```**
