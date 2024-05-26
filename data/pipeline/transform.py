@@ -40,14 +40,6 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
         trans_df["orga_abbreviation"] = abbreviation
         trans_df["orga_full_name"] = orga_full_name
 
-    def project_number(trans_df):
-        try:
-            project_number = iati_orga_id.split("-")[1]
-
-            trans_df["project_number"] = project_number
-        except:
-            trans_df["project_number"] = "NaN"
-
     def secondary_orga(trans_df):
         trans_df["client"] = abbreviation.upper()
 
@@ -159,9 +151,6 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
         trans_df['title_main'] = trans_df["title_en"]
         trans_df.loc[trans_df['title_main'] == "NaN", 'title_main'] = trans_df['title_other']
 
-    def organization(trans_df):
-        trans_df['organization'] = df['reporting_org_narrative'].apply(lambda x: x[0])
-
     def country(trans_df):
         trans_df["country_code_list"] = df["recipient_country_code"]
         trans_df["country"] = "NaN"
@@ -200,21 +189,6 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
 
         return trans_df
     
-    def region(trans_df):
-        try:
-            trans_df['region'] = df['recipient_region_code']
-        except:
-            trans_df['region'] = "NaN"
-
-    def location(trans_df):
-        try: 
-            if 'title_narrative_xml_lang' in df.columns:
-                trans_df['location'] = df['location_name_narrative']
-            else:
-                trans_df['location'] = "NaN"
-        except:
-                trans_df['location'] = "NaN"  
-
     def description(trans_df):
         trans_df["description_en"] = "NaN"
         trans_df["description_other"] = "NaN"
@@ -290,44 +264,6 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
     def ignore_some_projects(trans_df):
         trans_df = trans_df[~((trans_df['status'] == 'Closed') | (trans_df['status'] == 'Cancelled') | (trans_df['status'] == 'Suspended'))]
         return trans_df
-
-    def date(trans_df):
-        # One Hot
-        # 1 -> Yes
-        # 0 -> No
-
-        # Codes:
-        # 1 Planned start
-        # 2 Actual start
-        # 3 Planned end
-        # 4 Actual end
-
-        trans_df["planned_start"] = "NaN"
-        trans_df["actual_start"] = "NaN"
-        trans_df["planned_end"] = "NaN"
-        trans_df["actual_end"] = "NaN"
-
-        date_types = {
-            1: "planned_start",
-            2: "actual_start",
-            3: "planned_end",
-            4: "actual_end"
-        }
-
-        for index, row in df.iterrows():
-            dtype_list = row["activity_date_type"]
-            iso_date_list = row["activity_date_iso_date"]
-
-            combined_list = list(zip(dtype_list, iso_date_list))
-
-            # replace nums with column names from date_types
-            combined_list = [(date_types[int(t[0])], t[1]) for t in combined_list]
-
-            for i in combined_list:
-                trans_df[i[0]] = i[1]
-
-    def last_update(trans_df):
-        trans_df['last_update'] = df['last_updated_datetime']
 
     def sector_codes(trans_df):
         sector_codes = {
@@ -410,12 +346,6 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
                     print(f"Error on Index {index}, {crs_code_list}")
                     pass
 
-    def documents(trans_df):
-        try:
-            trans_df['docs'] = df['document_link_url']
-        except:
-            trans_df["docs"] = "NaN" 
-
     def title_and_decription(trans_df):
         trans_df["title_and_description"] = ""
 
@@ -444,23 +374,16 @@ def transform(abbreviation:str, iati_orga_id:str, orga_full_name:str):
 
     iati_id(trans_df)
     iati_orga_ids(trans_df)
-    #project_number(trans_df)
     secondary_orga(trans_df)
     en_title(trans_df)
     other_title(trans_df)
     main_title(trans_df)
-    #organization(trans_df)
     trans_df = country(trans_df)
-    #region(trans_df)
-    #location(trans_df)
     description(trans_df)
     main_description(trans_df)
     status(trans_df)
     trans_df = ignore_some_projects(trans_df)
-    #date(trans_df)
-    #last_update(trans_df)
     sector_codes(trans_df)
-    #documents(trans_df)
     title_and_decription(trans_df)
     trans_df = remove_duplicates(trans_df)
 
