@@ -21,6 +21,13 @@ The project aims to explore the collaborative potential among development banks 
   <img src="https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter Badge">
 </p>
 
+# Models Used
+
+| Model Name     | Description                                                 | Link                                                                                               |
+|----------------|-------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| MiniLMv2       | A small, efficient transformer model for various NLP tasks, used here with Sentence Transformer. | [MiniLMv2 on Hugging Face](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)           |
+| SDG Classifier | A classifier model for SDG (Sustainable Development Goals) classification from Hugging Face. | [SDG Classifier on Hugging Face](https://huggingface.co/username/sdg-classifier)                    |
+
 
 ## **Installation**
 1. ```git clone https://github.com/JanMuehlnikel/NLP-Development-Banks-Collaboration-Analyzer```
