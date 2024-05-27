@@ -5,7 +5,7 @@ The project aims to explore the collaborative potential among development banks 
 - **Data Pipeline:** Data pipeline to fetch and preprocess development cooperation projects from IATI Datastore (https://iatistandard.org/en/)
 - **Similarity Scores:** Calculation of text similarities between fetched projects to find similar projects
 - **Extended Similarity Scores:** Calculation of an extended similarity score which includes cosine text similarity, CRS3 Codes, CRS5 Codes and SDGs
-- **Application:** Visualization of results in a web application through Streamlit
+- **Application:** Visualization of results in a web application through Streamlit [App](https://huggingface.co/spaces/GIZ/eb-synergy-app)
 
 ## Tech Stack
 
