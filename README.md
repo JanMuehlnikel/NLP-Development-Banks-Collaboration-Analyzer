@@ -36,10 +36,14 @@ The project aims to explore the collaborative potential among development banks 
 4. Install ```NLP-Development-Banks-Collaboration-Analyzer/requirements.txt``` in virtual enviroment (e.g. conda)
 
 ## **Run Pipeline**
-1. Navigate to ```/data/pipeline```
-2. Run ```python pipeline.py```
-3. Wait till pipeline finishes
-4. See results in ```/src/merged_orgas.csv```
+1. Navigate to ```/config/```
+2. Create KEYS.py
+3. Add line ```IATI_KEY = "{Your_Iati_Datastore_Key}"```
+4. Create IATI Datastore API Key and replace it with the placeholder [Create Key](https://developer.iatistandard.org/subscriptions)
+5. Navigate to ```/data/pipeline```
+6. Run ```python pipeline.py```
+7. Wait till pipeline finishes
+8. See results in ```/src/merged_orgas.csv```
 
 ## **Calculate Similarities Between All Projects**
 1. Navigate to ```/data/models```
