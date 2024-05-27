@@ -39,7 +39,7 @@ The project aims to explore the collaborative potential among development banks 
 1. Navigate to ```/config/```
 2. Create KEYS.py
 3. Add line ```IATI_KEY = "{Your_Iati_Datastore_Key}"```
-4. Create IATI Datastore API Key and replace it with the placeholder ([Create Key](https://developer.iatistandard.org/subscriptions) - Full Access Key subscription used)
+4. Create IATI Datastore API Key and replace it with the placeholder ([Create Key](https://developer.iatistandard.org/subscriptions) - Full Access subscription used)
 5. Navigate to ```/data/pipeline```
 6. Run ```python pipeline.py```
 7. Wait till pipeline finishes
